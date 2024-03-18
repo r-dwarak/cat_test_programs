@@ -1,6 +1,11 @@
+import logging
+import math
+
 class ElectricityCalculator:
     def __init__(self):
-        pass
+        # Configure logging
+        logging.basicConfig(level=logging.INFO)  # Set logging level as needed
+        self.logger = logging.getLogger(__name__)
 
     def calcElectricityCharges(self, units):
         if units <= 0:
@@ -55,20 +60,19 @@ class ElectricityCalculator:
 
                 if isinstance(totalAmt, float):
                     # Print breakdown and total amount if calculation is successful
-                    print(f"For {unitsConsumed} units consumed, the bill amount breakdown is as follows:")
+                    logging.info(f"For {unitsConsumed} units consumed, the bill amount breakdown is as follows:")
                     for slab in breakdown:
-                        print(f"Units from {slab[0]} to {slab[1]} at rate Rs. {slab[2]} per unit: Rs. {slab[3]:.2f}")
-                    print(f"Total amount to be paid for {unitsConsumed} units is: Rs. {totalAmt:.2f}")
+                        logging.info(f"Units from {slab[0]} to {slab[1]} at rate Rs. {slab[2]} per unit: Rs. {slab[3]:.2f}")
+                    logging.info(f"Total amount to be paid for {unitsConsumed} units is: Rs. {totalAmt:.2f}")
                 else:
                     # Print error message if calculation failed
-                    print(totalAmt)
+                    logging.error(totalAmt)
             except ValueError:
                 # Handle invalid input error
-                print("Invalid input. Please enter a valid number of units.")
+                logging.error("Invalid input. Please enter a valid number of units.")
             except Exception as ex:
                 # Handle other exceptions
-                print("An error occurred:", str(ex))
-
+                logging.exception("An error occurred:")
 
 if __name__ == "__main__":
     # Create an instance of ElectricityCalculator class and run the program
